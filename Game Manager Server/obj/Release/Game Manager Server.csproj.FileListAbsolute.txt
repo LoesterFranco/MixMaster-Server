@@ -1,0 +1,16 @@
+C:\Users\Andre\Documents\Visual Studio 2015\Projects\MixMaster Server Remake\Game Manager Server\bin\Release\Game Manager Server.exe.config
+C:\Users\Andre\Documents\Visual Studio 2015\Projects\MixMaster Server Remake\Game Manager Server\bin\Release\Game Manager Server.exe
+C:\Users\Andre\Documents\Visual Studio 2015\Projects\MixMaster Server Remake\Game Manager Server\bin\Release\Game Manager Server.pdb
+C:\Users\Andre\Documents\Visual Studio 2015\Projects\MixMaster Server Remake\Game Manager Server\bin\Release\MySql.Data.dll
+C:\Users\Andre\Documents\Visual Studio 2015\Projects\MixMaster Server Remake\Game Manager Server\bin\Release\MySql.Data.xml
+C:\Users\Andre\Documents\Visual Studio 2015\Projects\MixMaster Server Remake\Game Manager Server\obj\Release\Game Manager Server.exe
+C:\Users\Andre\Documents\Visual Studio 2015\Projects\MixMaster Server Remake\Game Manager Server\obj\Release\Game Manager Server.pdb
+C:\Users\Andre\Desktop\andre\mixmaster\projetos\MixMaster Server Remake\Game Manager Server\bin\Release\Game Manager Server.exe.config
+C:\Users\Andre\Desktop\andre\mixmaster\projetos\MixMaster Server Remake\Game Manager Server\bin\Release\Game Manager Server.exe
+C:\Users\Andre\Desktop\andre\mixmaster\projetos\MixMaster Server Remake\Game Manager Server\bin\Release\MySql.Data.dll
+C:\Users\Andre\Desktop\andre\mixmaster\projetos\MixMaster Server Remake\Game Manager Server\bin\Release\MySql.Data.xml
+C:\Users\Andre\Desktop\andre\mixmaster\projetos\MixMaster Server Remake\Game Manager Server\obj\Release\Game Manager Server.csproj.CoreCompileInputs.cache
+C:\Users\Andre\Desktop\andre\mixmaster\projetos\MixMaster Server Remake\Game Manager Server\obj\Release\Game Manager Server.csproj.CopyComplete
+C:\Users\Andre\Desktop\andre\mixmaster\projetos\MixMaster Server Remake\Game Manager Server\obj\Release\Game Manager Server.exe
+C:\Users\Andre\Desktop\andre\mixmaster\projetos\MixMaster Server Remake\Game Manager Server\obj\Release\Game Manager Server.pdb
+C:\Users\Andre\Desktop\andre\mixmaster\projetos\MixMaster Server Remake\Game Manager Server\bin\Release\Game Manager Server.pdb
