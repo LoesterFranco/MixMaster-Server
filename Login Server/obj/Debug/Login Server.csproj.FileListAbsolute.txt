@@ -1,0 +1,6 @@
+c:\users\andre\documents\visual studio 2015\Projects\MixMaster Server Remake\Login Server\bin\Debug\Login Server.exe.config
+c:\users\andre\documents\visual studio 2015\Projects\MixMaster Server Remake\Login Server\bin\Debug\Login Server.exe
+c:\users\andre\documents\visual studio 2015\Projects\MixMaster Server Remake\Login Server\bin\Debug\Login Server.pdb
+c:\users\andre\documents\visual studio 2015\Projects\MixMaster Server Remake\Login Server\obj\Debug\Login Server.csprojResolveAssemblyReference.cache
+c:\users\andre\documents\visual studio 2015\Projects\MixMaster Server Remake\Login Server\obj\Debug\Login Server.exe
+c:\users\andre\documents\visual studio 2015\Projects\MixMaster Server Remake\Login Server\obj\Debug\Login Server.pdb
