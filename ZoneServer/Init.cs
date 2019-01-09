@@ -1,253 +1,156 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using ZoneServer.Logic;
+using ZoneServer.Network;
+using ZoneServer.Network.GMS;
+using ZoneServer.LuaScript;
+using ZoneServer.Database;
+using ZoneServer.GameServerManager;
+
 
 namespace ZoneServer
 {
-
-
-    class Init
+    public class ConsoleFunctions
     {
-        static void Main(string[] args)
+        private const int MF_BYCOMMAND = 0x00000000;
+        private const int SC_MINIMIZE = 0xF020;
+        private const int SC_MAXIMIZE = 0xF030;
+        private const int SC_SIZE = 0xF000;
+        const uint ENABLE_QUICK_EDIT = 0x0040;
+        const int STD_INPUT_HANDLE = -10;
+
+        [DllImport("user32.dll")]
+        private static extern int DeleteMenu(IntPtr hMenu, int nPosition, int wFlags);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+
+        [DllImport("kernel32.dll", ExactSpelling = true)]
+        private static extern IntPtr GetConsoleWindow();
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern IntPtr GetStdHandle(int nStdHandle);
+
+        [DllImport("kernel32.dll")]
+        static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
+
+        [DllImport("kernel32.dll")]
+        static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
+
+        public static void DisableResize()
         {
-            if(!BaseFunctions.ConsoleFunctions.DisableQuickEdit())
+            //DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), SC_MINIMIZE, MF_BYCOMMAND);
+            DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), SC_MAXIMIZE, MF_BYCOMMAND);
+            DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), SC_SIZE, MF_BYCOMMAND);
+        }
+
+        public static bool DisableMouse()
+        {
+
+            IntPtr consoleHandle = GetStdHandle(STD_INPUT_HANDLE);
+
+            // get current console mode
+            uint consoleMode;
+            if (!GetConsoleMode(consoleHandle, out consoleMode))
             {
-                LogManager.CLogManager.WriteConsoleLog("[ERROR] Quick Edit disable failed!", ConsoleColor.Red);
+                // ERROR: Unable to get console mode.
+                return false;
             }
 
-            // -> Load MY Info
-            if(!MyInfo.LoadMyInfo())
+            // Clear the quick edit bit in the mode flags
+            consoleMode &= ~ENABLE_QUICK_EDIT;
+
+            // set the new mode
+            if (!SetConsoleMode(consoleHandle, consoleMode))
             {
-                LogManager.CLogManager.WriteConsoleLog("[ERROR] MY INFO load failed", ConsoleColor.Red);
-                return;
+                // ERROR: Unable to set console mode
+                return false;
             }
 
-            // Load CLogManager(); -- Database and files
+            return true;
+        }
+    }
+
+
+
+    public class Init
+    {
+
+        // 1º LogManager
+        public static Logger logger;
+        // 2º Data & Files config Manager
+        // public static DataManager dataManager;
+
+        // 3º DatabaseManager
+        public static DatabaseManager dbManager;
+        // 4º NetworkManager
+        public static Server server;
+
+        
+
+
+        public static Manager GMS_Manager;
+
+        // 5º ScriptManager
+        public static ScriptManager scriptManager;
+
+        // 6º LogicManager
+        public static Proc proc;
+
+        // 7º GameManager
+        public static GameManager game;
+
+
+        public static void Main(string[] args)
+        {
+            // set console options
+            Console.Title = "MixMaster Server - v1.0 ";
+            Console.CursorVisible = false;
+            ConsoleFunctions.DisableMouse();
             
-
-            // load ZS asyncSocket
-            if(!Network.ZS.AsyncSocket.Start())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[ERROR] ZS_Socket start failed", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("[SZ_Socket] Socket Created successfully!", ConsoleColor.Green);
-
-            // connect Gamedata
-            if (!Database.Gamedata.ConnectGamedata())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD GAMEDATA DB", ConsoleColor.Red);
-                return;
-            }
-
-            // connect Member
-            if (!Database.Member.ConnectGamedata())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD Member DB", ConsoleColor.Red);
-                return;
-            }
-
-            // connect S_Data
-            if (!Database.SData.ConnectGamedata())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD S_Data DB", ConsoleColor.Red);
-                return;
-            }
-
-            // Connect Web_Account
-            // ...
-
-            //  Load_LvUserInfo
-            if (!Database.SData.Load_LvUserInfo())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD s_lvuserinfo", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load LvUserInfo DB Successfully...", ConsoleColor.Yellow);
-
-            // Load LvMonInfo
-            if (!Database.SData.Load_LvMonInfo())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD LvMonInfo", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load LvMonInfo DB Successfully...", ConsoleColor.Yellow);
-
-
-            // Load_Hero
-            if (!Database.SData.Load_Hero())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD Hero", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load Hero DB Successfully...", ConsoleColor.Yellow);
-
-
-            // Load Npc
-            if (!Database.SData.Load_NPC())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD NPC", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load NPC DB Successfully...", ConsoleColor.Yellow);
-
-            // Load Monster
-            if (!Database.SData.Load_Monster())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD Monster", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load Monster DB Successfully...", ConsoleColor.Yellow);
-
-            // Load MobItem
-            if (!Database.SData.Load_MobItem())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD MobItem", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load MobItem DB Successfully...", ConsoleColor.Yellow);
-
-            // Load SkillProperty
-            if (!Database.SData.Load_SkillProperty())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD SkillProperty", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load SkillProperty DB Successfully...", ConsoleColor.Yellow);
-
-            // Load SkillData
-            if (!Database.SData.Load_SkillData())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD SkillData", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load SkillData DB Successfully...", ConsoleColor.Yellow);
-
-            // Load Item
-            if (!Database.SData.Load_Item())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD Item", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load Item DB Successfully...", ConsoleColor.Yellow);
-
-            // Load ItemEffectiveData
-            if (!Database.SData.Load_ItemEffectiveData())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD ItemEffectiveData", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load ItemEffectiveData DB Successfully...", ConsoleColor.Yellow);
-
-            // Load ItemBox
-            if (!Database.SData.Load_ItemBox())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD ItemBox", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load ItemBox DB Successfully...", ConsoleColor.Yellow);
-
-            // Load Production
-            if (!Database.SData.Load_Production())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD Production", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load Production DB Successfully...", ConsoleColor.Yellow);
-
-
-            // Load ItemPowerAdd
-            if (!Database.SData.Load_ItemPowerAdd())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD ItemPowerAdd", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load ItemPowerAdd DB Successfully...", ConsoleColor.Yellow);
-
-            // Load Npc_Sale
-            if (!Database.SData.Load_NpcSale())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD NPC_Sale", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load NPC_Sale DB Successfully...", ConsoleColor.Yellow);
-
-            // Load Zone
-            if (!Database.SData.Load_Zone())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD Zone", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load Zone DB Successfully...", ConsoleColor.Yellow);
-
-
-            // Load Warp
-            if (!Database.SData.Load_Gate())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD Gate", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load Gate DB Successfully...", ConsoleColor.Yellow);
-
-            // Load MixSkill
-            if (!Database.SData.Load_MixSkill())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[DATABASE] FAILED TO LOAD MixSkill", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("    [I] Load MixSkill DB Successfully...", ConsoleColor.Yellow);
-
-
-            // Load Guilds
-            if (!Database.Gamedata.LoadGuilds())
-            {
-                LogManager.CLogManager.WriteConsoleLog("FAILED TO LOAD Guilds", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("[I] Guilds Loaded Successfully...", ConsoleColor.Green);
-
-            // Load another tables s_data
-            // ....
-            // ....
-            // ....
-
-            // Start GMS Connection
            
-            
-            if(!Network.GMS.Connect.Start())
-            {
-                LogManager.CLogManager.WriteConsoleLog("[GMS] Connection Faile!", ConsoleColor.Red);
-                return;
-            }
-            LogManager.CLogManager.WriteConsoleLog("[GMS] Connection successfully!", ConsoleColor.Green);
+
+            // initialize LogManager
+            logger = new Logger();
+            logger.ConsoleLog("      ___   ___|_____ __   __ ___  _ __                      ", ConsoleColor.Cyan);
+            logger.ConsoleLog(@"     / __| / _ \| '__|\ \ / // _ \| '__|                     ", ConsoleColor.Cyan);
+            logger.ConsoleLog(@"     \__ \|  __/| |    \ V /|  __/| |                        ", ConsoleColor.Cyan);
+            logger.ConsoleLog(@"     |___/ \___||_|     \_/  \___||_|                        ", ConsoleColor.Cyan);
+            logger.ConsoleLog("                                                             ", ConsoleColor.Cyan);
+            logger.ConsoleLog("      Copyright (C) 2019 - Andre Murilo ", ConsoleColor.DarkCyan);
             Console.WriteLine("\n");
 
-            LogManager.CLogManager.WriteConsoleLog("-------------------START-------------------", ConsoleColor.Gray);
+            // Initialize GameManager
+            game = new GameManager();
+
+            // initialize ScriptManager
+            scriptManager = new ScriptManager();
+
+            // Initialize DataBase
+            dbManager = new DatabaseManager();
+
+            // initialize server & connection
+            server = new Server(20165);
+
+            // initialize GMS connection
+            GMS_Manager = new Manager();
+
+            // initialize proc & logic server
+            proc = new Proc();
+
+            // Load All Scripts     
+            scriptManager.LoadAll();
+
+            game.mapManager.LoadAllMaps();
+            
+            logger.WriteLog("Servidor iniciado com sucesso!", LogStatus.NormalInfo);
+            // wait this process exit
 
 
-
-
-            //Network.ZS.XHERO Hero = Database.Gamedata.LoadHero(2004, 2);
-            //LogManager.CLogManager.WriteConsoleLog("Hero: " + Hero.name, ConsoleColor.Gray);
-
-            /*
-            for(int i=0; i < Data.SData.MixSkill.Count; i++)
-            {
-                Console.WriteLine("Item ID: " + Data.SData.MixSkill[i].MixSkillLelvel);
-            }   */
-
-
-
-
-
-
-
-
-
+            // functiona apenas em windows & mac
             Process.GetCurrentProcess().WaitForExit();
         }
     }

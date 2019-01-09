@@ -1,0 +1,13 @@
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\Basic Server.exe.config
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\Basic Server.exe
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\Basic Server.pdb
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\obj\Debug\Basic Server.csproj.CoreCompileInputs.cache
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\obj\Debug\Basic Server.exe
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\obj\Debug\Basic Server.pdb
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\MoonSharp.Interpreter.dll
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\MoonSharp.Interpreter.pdb
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\MoonSharp.Interpreter.xml
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\obj\Debug\Basic Server.csproj.CopyComplete
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\MySql.Data.dll
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\MySql.Data.xml
+C:\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\obj\Debug\Basic Server.csprojResolveAssemblyReference.cache

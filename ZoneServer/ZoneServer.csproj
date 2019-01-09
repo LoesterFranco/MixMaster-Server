@@ -1,17 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2CB7E799-6D04-47CD-B39F-FCEE0B65ECE6}</ProjectGuid>
+    <ProjectGuid>{230D7A55-C3F6-4476-AF08-685595D5A5FC}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZoneServer</RootNamespace>
     <AssemblyName>ZoneServer</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,9 +50,13 @@
     <ApplicationIcon>mm.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MoonSharp.Interpreter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=921e73ce94aa17f8, processorArchitecture=MSIL">
+      <HintPath>..\packages\MoonSharp.2.0.0.0\lib\net40-client\MoonSharp.Interpreter.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.10.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,47 +65,58 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseFunctions\ConsoleFunctions.cs" />
-    <Compile Include="Crypo\XCRYPT.cs" />
-    <Compile Include="Database\Gamedata.cs" />
-    <Compile Include="Database\LogDB.cs" />
-    <Compile Include="Database\Member.cs" />
-    <Compile Include="Database\SData.cs" />
-    <Compile Include="Database\WebAccount.cs" />
-    <Compile Include="Data\Guild.cs" />
-    <Compile Include="Data\SData.cs" />
-    <Compile Include="LogManager\CLogManager.cs" />
-    <Compile Include="MyInfo.cs" />
-    <Compile Include="Network\GMS\Connect.cs" />
-    <Compile Include="Network\GMS\ReceiveData.cs" />
-    <Compile Include="Network\GMS\SendData.cs" />
-    <Compile Include="Network\ZS\AsyncSocket.cs" />
-    <Compile Include="Network\ZS\XCLIENT.cs" />
-    <Compile Include="Network\ZS\CPacket.cs" />
-    <Compile Include="Network\ZS\ReceiveData.cs" />
-    <Compile Include="Network\ZS\SendData.cs" />
+    <Compile Include="Database\DatabaseManager.cs" />
+    <Compile Include="Database\DSdata.cs" />
+    <Compile Include="Database\DGameData.cs" />
+    <Compile Include="Game\Data\CItem.cs" />
+    <Compile Include="Game\Data\CMixSkill.cs" />
+    <Compile Include="Game\Data\CQuest.cs" />
+    <Compile Include="Game\Data\CSkills.cs" />
+    <Compile Include="Game\Data\GameData.cs" />
+    <Compile Include="Game\Data\SData.cs" />
+    <Compile Include="Game\Data\XHENCH_INFO.cs" />
+    <Compile Include="Game\Data\XHERO.cs" />
+    <Compile Include="Game\Data\XMap.cs" />
+    <Compile Include="Game\GameManager.cs" />
+    <Compile Include="Game\Data\XBATTLE_HENCH.cs" />
+    <Compile Include="Game\ZS_DATA.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Network\Client.cs" />
     <Compile Include="Init.cs" />
+    <Compile Include="Logic\Proc.cs" />
+    <Compile Include="Network\GMS\Manager.cs" />
+    <Compile Include="Network\GMS\Receive.cs" />
+    <Compile Include="Network\GMS\Send.cs" />
+    <Compile Include="Network\Receive.cs" />
+    <Compile Include="Network\Sender.cs" />
+    <Compile Include="Network\XPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScriptManager\LoadScripts.cs" />
-    <Compile Include="Structs\Data.cs" />
-    <Compile Include="Structs\Guild.cs" />
-    <Compile Include="Structs\gamedata.cs" />
+    <Compile Include="ScriptManager\Events.cs" />
+    <Compile Include="ScriptManager\EventsHandler.cs" />
+    <Compile Include="ScriptManager\Functions.cs" />
+    <Compile Include="ScriptManager\ScriptManager.cs" />
+    <Compile Include="ScriptManager\Timer.cs" />
+    <Compile Include="Network\Server.cs" />
+    <Compile Include="XCript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Logic\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="mm.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

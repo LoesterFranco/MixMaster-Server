@@ -1,0 +1,24 @@
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\obj\Debug\ZoneServer.csprojAssemblyReference.cache
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\obj\Debug\ZoneServer.csproj.CoreCompileInputs.cache
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\ZoneServer.exe.config
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\ZoneServer.exe
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\ZoneServer.pdb
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\MoonSharp.Interpreter.dll
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\MoonSharp.Interpreter.pdb
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\MoonSharp.Interpreter.xml
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\bin\Debug\MySql.Data.xml
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\obj\Debug\ZoneServer.csproj.CopyComplete
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\obj\Debug\ZoneServer.exe
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\Basic Server\obj\Debug\ZoneServer.pdb
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\bin\Debug\ZoneServer.exe.config
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\bin\Debug\ZoneServer.exe
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\bin\Debug\ZoneServer.pdb
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\bin\Debug\MoonSharp.Interpreter.dll
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\bin\Debug\MoonSharp.Interpreter.pdb
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\bin\Debug\MoonSharp.Interpreter.xml
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\bin\Debug\MySql.Data.xml
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\obj\Debug\ZoneServer.csprojAssemblyReference.cache
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\obj\Debug\ZoneServer.csproj.CoreCompileInputs.cache
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\obj\Debug\ZoneServer.csproj.CopyComplete
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\obj\Debug\ZoneServer.exe
+E:\windows-backup\backup\Users\Andre\Desktop\andre\programas\Basic Server\ZoneServer\obj\Debug\ZoneServer.pdb
